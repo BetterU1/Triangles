@@ -1,0 +1,82 @@
+import math as m
+
+i = int(input(""))
+sideAx = []
+sideBx = []
+sideCx = []
+sideAy = []
+sideBy = []
+sideCy = []
+sideA = []
+sideB = []
+sideC = []
+
+
+def check_Side(x, y, x1, y1):
+    x2 = m.pow(x - x1, 2)
+    y2 = m.pow(y - y1, 2)
+    length = m.sqrt(x2 + y2)
+    return length
+
+
+def get_area(side1, side2, side3):
+    s = (side1 + side2 + side3)/2
+    area = m.sqrt(s*(s-side1)*(s-side2)*(s-side3))
+    return int(area)
+
+
+def type_triangle(side1, side2, side3):
+    type_1 = ""
+    if side1 == side2 == side3:
+        type_1 = "Equilateral"
+    elif (side1 != side3) and (side1 == side2):
+        type_1 = "Isosceles"
+    elif (side1 != side2) and (side1 == side3):
+        type_1 = "Isosceles"
+    elif (side2 != side1) and (side2 == side3):
+        type_1 = "Isosceles"
+    elif (side1 != side2) and (side2 != side3) and (side1 != side3):
+        type_1 = "Scalene"
+
+    return type_1
+
+
+def get_height(area, base):
+    height = area*2/base
+    return height
+
+
+for f in range(0, i):
+    a = input("").split(" ")
+    sideAx.append(int(a[0]))
+    sideAy.append(int(a[1]))
+    b = input("").split(" ")
+    sideBx.append(int(b[0]))
+    sideBy.append(int(b[1]))
+    c = input("").split(" ")
+    sideCx.append(int(c[0]))
+    sideCy.append(int(c[1]))
+    A = round(check_Side(sideAx[f], sideAy[f], sideBx[f], sideBy[f]))
+    B = round(check_Side(sideBx[f], sideBy[f], sideCx[f], sideCy[f]))
+    C = round(check_Side(sideAx[f], sideAy[f], sideCx[f], sideCy[f]))
+    sideA.append(A)
+    sideB.append(B)
+    sideC.append(C)
+    if get_area(sideA[f], sideB[f], sideC[f]) == 0:
+        print('Oops! looks like this triangle cant be formed')
+    else:
+        print(f"""The value of sides are {sideA[f]}, {sideB[f]} and {sideC[f]}
+Therefore it's a {type_triangle(sideA[f], sideB[f], sideC[f])} Triangle""")
+        if (sideA[f] > sideB[f]) and (sideA[f] > sideC[f]):
+            print(f"The biggest side is {sideA[f]}")
+        elif (sideB[f] > sideA[f]) and (sideB[f] > sideC[f]):
+            print(f"The biggest side is {sideB[f]}")
+        elif (sideC[f] > sideB[f]) and (sideC[f] > sideA[f]):
+            print(f"The biggest side is {sideC[f]}")
+        print(f"The area of the triangle is {round(get_area(sideA[f], sideB[f], sideC[f]))}")
+        print(
+            f"The height if side1({sideA[f]}) is taken as base - {round(get_height(get_area(sideA[f], sideB[f], sideC[f]), sideA[f]))}")
+        print(
+            f"The height if side2({sideB[f]}) is taken as base - {round(get_height(get_area(sideA[f], sideB[f], sideC[f]), sideB[f]))}")
+        print(
+            f"The height if side3({sideC[f]}) is taken as base - {round(get_height(get_area(sideA[f], sideB[f], sideC[f]), sideC[f]))}")
